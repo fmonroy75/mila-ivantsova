@@ -31,3 +31,38 @@
     text-wrap: balance;
   }
 }
+
+/*ingenium*/
+/* Estilos para la tarjeta IngeniumBright en el footer */
+.ingenium-brand {
+  background-color: rgba(59, 74, 107, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dark .ingenium-brand {
+  background-color: rgba(91, 122, 155, 0.1);
+}
+
+.ingenium-brand:hover {
+  background-color: rgba(59, 74, 107, 0.12);
+  transform: translateY(-2px);
+}
+
+.dark .ingenium-brand:hover {
+  background-color: rgba(91, 122, 155, 0.2);
+}
+
+/* Animación sutil para el logo */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ingenium-logo {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
