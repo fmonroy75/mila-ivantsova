@@ -4,7 +4,15 @@
     <v-app-bar flat color="transparent" class="border-b border-gray-200 dark:border-gray-800">
       <v-container class="d-flex align-center justify-space-between">
         <div class="d-flex align-center">
-          <router-link to="/" class="text-decoration-none">
+          <router-link to="/" class="text-decoration-none d-flex align-center gap-3 site-logo">
+            <img
+              src="/logo-icon.png"
+              alt=""
+              width="40"
+              height="40"
+              class="site-logo__icon"
+              loading="eager"
+            />
             <v-app-bar-title class="font-serif text-xl font-semibold tracking-wide">
               <span class="text-premium-ukraine">Міла</span> Іванцова
             </v-app-bar-title>
@@ -118,6 +126,20 @@ const scrollToAuthor = () => {
 .footer-premium {
   background-color: transparent;
   border-top: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+/* Logo del sitio */
+.site-logo {
+  transition: opacity 0.2s ease;
+}
+
+.site-logo:hover {
+  opacity: 0.85;
+}
+
+.site-logo__icon {
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
 /* Tarjeta de IngeniumBright - Estilo premium */
