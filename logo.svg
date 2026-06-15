@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" role="img" aria-label="V;0 20=F>20">
+  <defs>
+    <linearGradient id="wheat" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5C842"/>
+      <stop offset="100%" stop-color="#D4A017"/>
+    </linearGradient>
+  </defs>
+  <!-- Emblem -->
+  <rect x="0" y="0" width="64" height="64" rx="10" fill="#F5F3EF"/>
+  <g transform="translate(32 36)">
+    <path d="M-10 8 L0 -14 L10 8 Z" fill="url(#wheat)"/>
+    <rect x="-9" y="6" width="18" height="5" rx="1" fill="#3B4A6B"/>
+    <path d="M-7 6 L0 -2 L7 6" fill="#F5F3EF" opacity="0.85"/>
+  </g>
+  <g transform="translate(32 32)">
+    <rect x="-14" y="-14" width="28" height="28" transform="rotate(45)" fill="none" stroke="#3B4A6B" stroke-width="1.5"/>
+    <rect x="-10" y="-10" width="20" height="20" transform="rotate(45)" fill="none" stroke="#C0392B" stroke-width="1"/>
+    <circle cx="0" cy="0" r="2" fill="#C0392B"/>
+    <circle cx="-6" cy="0" r="1.2" fill="#3B4A6B"/>
+    <circle cx="6" cy="0" r="1.2" fill="#3B4A6B"/>
+    <circle cx="0" cy="-6" r="1.2" fill="#3B4A6B"/>
+    <circle cx="0" cy="6" r="1.2" fill="#3B4A6B"/>
+  </g>
+  <!-- Text -->
+  <text x="80" y="42" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-weight="600" fill="#3B4A6B">V;0</text>
+  <text x="148" y="42" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-weight="500" fill="#374151">20=F>20</text>
+</svg>

@@ -1,0 +1,22 @@
+{
+  "name": "Міла Іванцова",
+  "short_name": "Міла Іванцова",
+  "description": "Офіційний сайт Міли Іванцової. 34 книги сучасної прози.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3EF",
+  "theme_color": "#3B4A6B",
+  "lang": "uk",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
