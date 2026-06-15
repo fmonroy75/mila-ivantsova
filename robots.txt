@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://fmonroy75.github.io/mila-ivantsova/sitemap.xml
