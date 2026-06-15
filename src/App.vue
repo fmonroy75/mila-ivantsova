@@ -1,5 +1,8 @@
 <template>
   <v-app :theme="isDark ? 'dark' : 'light'">
+    <!-- CUSTOM CURSOR PREMIUM -->
+    <div class="custom-cursor" :class="{ 'cursor-active': isCursorActive }"></div>
+    <div class="custom-cursor-dot"></div>
     <!-- Navigation Bar SUPER PREMIUM -->
     <v-app-bar 
       flat 
@@ -128,6 +131,43 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+})
+
+
+// Cursor personalizado
+const cursorRef = ref(null)
+const cursorDotRef = ref(null)
+const isCursorActive = ref(false)
+
+const handleMouseMove = (e) => {
+  const cursor = document.querySelector('.custom-cursor')
+  const cursorDot = document.querySelector('.custom-cursor-dot')
+  if (!cursor || !cursorDot) return
+  
+  cursor.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`
+  cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`
+}
+
+const handleMouseOver = () => {
+  isCursorActive.value = true
+}
+
+const handleMouseLeave = () => {
+  isCursorActive.value = false
+}
+
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove)
+  
+  const interactiveElements = document.querySelectorAll('a, button, .v-btn, .v-card, .premium-card')
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', handleMouseOver)
+    el.addEventListener('mouseleave', handleMouseLeave)
+  })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
 })
 </script>
 
@@ -386,6 +426,56 @@ onUnmounted(() => {
   .brand-text p {
     font-size: 0.6rem;
     letter-spacing: 1.2px;
+  }
+}
+
+/* CUSTOM CURSOR PREMIUM */
+.custom-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(59, 74, 107, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  backdrop-filter: blur(4px);
+  background: rgba(59, 74, 107, 0.05);
+}
+
+.dark .custom-cursor {
+  border-color: rgba(91, 122, 155, 0.4);
+  background: rgba(91, 122, 155, 0.08);
+}
+
+.custom-cursor.cursor-active {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(245, 166, 35, 0.6);
+  background: rgba(245, 166, 35, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #3B4A6B, #5B7A9B);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+}
+
+.dark .custom-cursor-dot {
+  background: linear-gradient(135deg, #5B7A9B, #7B9AB5);
+}
+
+/* Ocultar cursor personalizado en móviles */
+@media (max-width: 768px) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none;
   }
 }
 </style>
