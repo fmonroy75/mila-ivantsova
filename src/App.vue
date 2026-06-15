@@ -1,8 +1,13 @@
 <template>
   <v-app :theme="isDark ? 'dark' : 'light'">
-    <!-- Navigation Bar -->
-    <v-app-bar flat color="transparent" class="border-b border-gray-200 dark:border-gray-800">
-      <v-container class="d-flex align-center justify-space-between">
+    <!-- Navigation Bar SUPER PREMIUM -->
+    <v-app-bar 
+      flat 
+      :class="['navbar-premium', { 'navbar-scrolled': isScrolled }]"
+      :height="isScrolled ? 64 : 80"
+      class="transition-all duration-300"
+    >
+      <v-container class="d-flex align-center justify-space-between h-100">
         <div class="d-flex align-center">
           <router-link to="/" class="text-decoration-none d-flex align-center gap-3 site-logo">
             <img
@@ -10,10 +15,11 @@
               alt=""
               width="40"
               height="40"
-              class="site-logo__icon"
+              class="site-logo__icon transition-all duration-300"
+              :style="{ width: isScrolled ? '32px' : '40px', height: isScrolled ? '32px' : '40px' }"
               loading="eager"
             />
-            <v-app-bar-title class="font-serif text-xl font-semibold tracking-wide">
+            <v-app-bar-title class="font-serif font-semibold tracking-wide transition-all duration-300" :class="isScrolled ? 'text-lg' : 'text-xl'">
               <span class="text-premium-ukraine">Міла</span> Іванцова
             </v-app-bar-title>
           </router-link>
@@ -21,35 +27,32 @@
         
         <div class="d-flex align-center gap-4">
           <router-link to="/" class="text-decoration-none">
-            <v-btn variant="text">{{ t('nav.home') }}</v-btn>
+            <v-btn variant="text" class="nav-btn">{{ t('nav.home') }}</v-btn>
           </router-link>
           <a href="#books-section" class="text-decoration-none" @click.prevent="scrollToBooks">
-            <v-btn variant="text">{{ t('nav.books') }}</v-btn>
+            <v-btn variant="text" class="nav-btn">{{ t('nav.books') }}</v-btn>
           </a>
           <a href="#author-section" class="text-decoration-none" @click.prevent="scrollToAuthor">
-            <v-btn variant="text">{{ t('nav.author') }}</v-btn>
+            <v-btn variant="text" class="nav-btn">{{ t('nav.author') }}</v-btn>
           </a>
           
           <v-divider vertical class="mx-2"></v-divider>
           
-          <LanguageSwitcher />
-          <ThemeToggle />
+          <LanguageSwitcher :isScrolled="isScrolled" />
+          <ThemeToggle :isScrolled="isScrolled" />
         </div>
       </v-container>
     </v-app-bar>
 
     <!-- Main Content with Router -->
-    <v-main>
+    <v-main :style="{ paddingTop: isScrolled ? '64px' : '80px' }">
       <router-view :t="t" :whatsappNumber="whatsappNumber" />
     </v-main>
 
     <!-- Footer Premium con marca IngeniumBright -->
-<!-- Footer con imagen real -->
-<!-- Footer Premium con marca IngeniumBright (estilo mejorado) -->
     <v-footer class="footer-premium mt-16 py-8">
       <v-container>
         <v-row align="center" justify="space-between">
-          <!-- Columna izquierda: Copyright -->
           <v-col cols="12" md="auto" class="text-center text-md-start">
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
               {{ t('footer.rights') }} &copy; {{ new Date().getFullYear() }} Міла Іванцова
@@ -59,7 +62,6 @@
             </p>
           </v-col>
           
-          <!-- Columna derecha: Tarjeta IngeniumBright Premium -->
           <v-col cols="12" md="auto" class="text-center text-md-end">
             <a
               href="https://ingeniumbright.com"
@@ -90,6 +92,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useTheme } from './composables/useTheme.js'
 import { useLanguage } from './composables/useLanguage.js'
 import ThemeToggle from './components/ThemeToggle.vue'
@@ -98,6 +101,12 @@ import LanguageSwitcher from './components/LanguageSwitcher.vue'
 const { isDark } = useTheme()
 const { t } = useLanguage()
 const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '380000000000'
+
+const isScrolled = ref(false)
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
 
 const scrollToBooks = () => {
   const booksSection = document.getElementById('books-section')
@@ -112,6 +121,14 @@ const scrollToAuthor = () => {
     authorSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>
@@ -119,13 +136,85 @@ const scrollToAuthor = () => {
   gap: 1rem;
 }
 
+.h-100 {
+  height: 100%;
+}
+
 /* ========================================
-   FOOTER PREMIUM - ESTILO INGENIUMBRIGHT
+   NAVBAR SUPER PREMIUM - GLASSMORPHISM
    ======================================== */
 
-.footer-premium {
-  background-color: transparent;
-  border-top: 1px solid rgba(128, 128, 128, 0.1);
+.navbar-premium {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(245, 243, 239, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid rgba(59, 74, 107, 0.08);
+  animation: slideDown 0.5s ease-out;
+}
+
+.dark .navbar-premium {
+  background-color: rgba(10, 10, 10, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Animación de entrada */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Estado cuando hay scroll */
+.navbar-premium.navbar-scrolled {
+  background-color: rgba(245, 243, 239, 0.95) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(59, 74, 107, 0.15);
+}
+
+.dark .navbar-premium.navbar-scrolled {
+  background-color: rgba(10, 10, 10, 0.95) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Botones de navegación con efecto hover premium */
+.nav-btn {
+  position: relative;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3B4A6B, #5B7A9B);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.nav-btn:hover::after {
+  width: 70%;
+}
+
+.dark .nav-btn::after {
+  background: linear-gradient(90deg, #5B7A9B, #7B9AB5);
 }
 
 /* Logo del sitio */
@@ -138,8 +227,18 @@ const scrollToAuthor = () => {
 }
 
 .site-logo__icon {
-  border-radius: 10px;
+  border-radius: 12px;
   flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   FOOTER PREMIUM - ESTILO INGENIUMBRIGHT
+   ======================================== */
+
+.footer-premium {
+  background-color: transparent;
+  border-top: 1px solid rgba(128, 128, 128, 0.1);
 }
 
 /* Tarjeta de IngeniumBright - Estilo premium */
@@ -160,13 +259,11 @@ const scrollToAuthor = () => {
   cursor: pointer;
 }
 
-/* Modo oscuro */
 .dark .brand-ingenium {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Hover effects */
 .brand-ingenium:hover {
   border-color: rgba(245, 166, 35, 0.4);
   background: rgba(245, 166, 35, 0.05);
@@ -174,12 +271,6 @@ const scrollToAuthor = () => {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.dark .brand-ingenium:hover {
-  background: rgba(245, 166, 35, 0.08);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* Logo con gradiente */
 .brand-logo {
   width: 56px;
   height: 56px;
@@ -192,25 +283,21 @@ const scrollToAuthor = () => {
   transition: all 0.3s ease;
 }
 
-/* En modo oscuro el logo tiene otro gradiente */
 .dark .brand-logo {
   background: linear-gradient(135deg, #5B7A9B, #7B9AB5);
 }
 
-/* Hover del logo */
 .brand-ingenium:hover .brand-logo {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(91, 122, 155, 0.5);
 }
 
-/* Imagen del logo */
 .logo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Texto de la marca */
 .brand-text {
   text-align: left;
 }
@@ -273,6 +360,10 @@ const scrollToAuthor = () => {
   .brand-text p {
     font-size: 0.65rem;
     letter-spacing: 1.5px;
+  }
+  
+  .nav-btn::after {
+    display: none;
   }
 }
 
