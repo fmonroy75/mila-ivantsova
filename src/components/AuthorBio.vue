@@ -2,7 +2,7 @@
   <section class="py-20">
     <v-container>
       <v-row class="items-center">
-        <v-col cols="12" md="6" class="order-2 order-md-1">
+        <v-col cols="12" md="6" class="order-2 order-md-1" data-aos="fade-right">
           <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">
             {{ t('author.title') }}
           </h2>
@@ -28,7 +28,7 @@
           </p>
         </v-col>
         
-        <v-col cols="12" md="6" class="order-1 order-md-2 mb-8 mb-md-0">
+        <v-col cols="12" md="6" class="order-1 order-md-2 mb-8 mb-md-0" data-aos="fade-left">
           <div class="relative">
             <div class="absolute inset-0 bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20 rounded-2xl transform rotate-3"></div>
             <div class="relative rounded-2xl aspect-[3/4] overflow-hidden bg-gray-200 dark:bg-gray-800">

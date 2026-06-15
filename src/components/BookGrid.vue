@@ -10,12 +10,11 @@
       
       <v-row>
         <v-col
-          v-for="book in translatedBooks"
-          :key="book.id"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
+        v-for="(book, index) in translatedBooks"
+  :key="book.id"
+  cols="12" sm="6" md="4" lg="3"
+  data-aos="fade-up"
+  :data-aos-delay="index * 50"
         >
           <v-card
             class="premium-card h-full cursor-pointer"

@@ -4,11 +4,11 @@
     <div class="absolute inset-0 bg-gradient-to-br from-premium-ukraine/10 via-transparent to-premium-steel/10 animate-pulse"></div>
     
     <v-container class="text-center relative z-10 py-20">
-      <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-6 text-balance">
+      <h1 data-aos="zoom-in" class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight mb-6 text-balance">
         Міла Іванцова
       </h1>
       
-      <p class="text-xl md:text-2xl lg:text-3xl text-premium-steel dark:text-gray-400 italic mb-8 font-serif">
+      <p data-aos="fade-up" data-aos-delay="200" class="text-xl md:text-2xl lg:text-3xl text-premium-steel dark:text-gray-400 italic mb-8 font-serif">
         «{{ t('hero.epigraph') }}»
       </p>
       
@@ -16,7 +16,7 @@
         {{ t('hero.subtitle') }}
       </p>
       
-      <v-btn
+      <v-btn data-aos="fade-up" data-aos-delay="400"
         size="large"
         color="primary"
         variant="flat"

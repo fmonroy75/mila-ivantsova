@@ -166,9 +166,32 @@ onMounted(() => {
   })
 })
 
+
+// Scroll Reveal Animation
+const observeElements = () => {
+  const elements = document.querySelectorAll('[data-aos]')
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.getAttribute('data-aos-delay') || 0
+        setTimeout(() => {
+          entry.target.classList.add('aos-animate')
+        }, delay)
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+  
+  elements.forEach(el => observer.observe(el))
+}
+
+
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
 })
+
+
+
 </script>
 
 <style scoped>
@@ -477,5 +500,33 @@ onUnmounted(() => {
   .custom-cursor-dot {
     display: none;
   }
+}
+
+/* SCROLL REVEAL PREMIUM */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+[data-aos="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-aos="fade-left"] {
+  transform: translateX(-30px);
+}
+
+[data-aos="fade-right"] {
+  transform: translateX(30px);
+}
+
+[data-aos="zoom-in"] {
+  transform: scale(0.9);
+}
+
+.aos-animate {
+  opacity: 1 !important;
+  transform: translate(0) scale(1) !important;
 }
 </style>
