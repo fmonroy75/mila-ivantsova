@@ -16,11 +16,14 @@
   data-aos="fade-up"
   :data-aos-delay="index * 50"
         >
-          <v-card
-            class="premium-card h-full cursor-pointer"
-            elevation="2"
-            @click="goToBook(book.id)"
-          >
+        <v-card
+    class="premium-card h-full cursor-pointer tilt-card"
+    elevation="2"
+    @click="goToBook(book.id)"
+    @mousemove="handleTilt($event, book.id)"
+    @mouseleave="resetTilt(book.id)"
+    :data-tilt-id="book.id"
+  >
             <!-- Imagen de portada o placeholder -->
             <div class="aspect-[2/3] overflow-hidden rounded-t-lg bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
               <img 
@@ -81,4 +84,40 @@ const translatedBooks = computed(() => {
 const goToBook = (bookId) => {
   router.push(`/book/${bookId}`)
 }
+
+const handleTilt = (event, bookId) => {
+  const card = event.currentTarget
+  const rect = card.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  const centerX = rect.width / 2
+  const centerY = rect.height / 2
+  const rotateX = (y - centerY) / 15
+  const rotateY = (centerX - x) / 15
+  
+  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`
+}
+
+const resetTilt = (bookId) => {
+  const card = document.querySelector(`[data-tilt-id="${bookId}"]`)
+  if (card) {
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)'
+  }
+}
 </script>
+
+<style scoped>
+/* TILT EFFECT PREMIUM */
+.tilt-card {
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+}
+
+.dark .tilt-card:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+}
+</style>
