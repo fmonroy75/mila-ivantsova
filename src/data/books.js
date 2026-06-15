@@ -9,7 +9,7 @@ export const books = [
     publisher: "Самостійне видання", 
     genres: ["Романи, новели та оповідання", "Міське", "Майдани"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/1.jpg" 
+    cover: "/covers/1.jpg" 
   },
   { 
     id: 2, 
@@ -20,7 +20,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля", 
     genres: ["Сучасне", "Цикли різножанрових оповідань", "Антології різних авторів"], 
     authors: ["М.Іванцова", "Д.Корній", "Наталка Доляк"], 
-    cover: "covers/2.jpg" 
+    cover: "/covers/2.jpg" 
   },
   { 
     id: 3, 
@@ -31,7 +31,7 @@ export const books = [
     publisher: "Брайт Стар Паблішинг", 
     genres: ["Цикли різножанрових оповідань", "Вибране різних років"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/3.jpg" 
+    cover: "/covers/3.jpg" 
   },
   { 
     id: 4, 
@@ -42,7 +42,7 @@ export const books = [
     publisher: "Брайт Стар Паблішинг", 
     genres: ["Родинна сага", "Психологічне", "Міське"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/4.jpg" 
+    cover: "/covers/4.jpg" 
   },
   { 
     id: 5, 
@@ -53,7 +53,7 @@ export const books = [
     publisher: "Країна мрій", 
     genres: ["Цикли різножанрових оповідань", "Подорожня історія"], 
     authors: ["Смагіна Марина", "Кошелєв К.", "Васильченко В.", "Соколюк О.", "Дубинянська Я.", "Таран Л.", "Левченко А.", "Н.Гук", "Сідаш М.", "Рудницька А.", "Кришталева О.", "М.Іванцова", "Цвіліховський В.", "Жванко Л."], 
-    cover: "covers/5.jpg" 
+    cover: "/covers/5.jpg" 
   },
   { 
     id: 6, 
@@ -64,7 +64,7 @@ export const books = [
     publisher: "КМ БУКС", 
     genres: ["Міське", "Психологічне", "Життя видатних людей"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/6.jpg" 
+    cover: "/covers/6.jpg" 
   },
   { 
     id: 7, 
@@ -75,7 +75,7 @@ export const books = [
     publisher: "КБ-БУКС", 
     genres: ["Подорожня історія", "Цикли різножанрових оповідань"], 
     authors: ["Н.Гук", "Підгірна Лора", "Белімова Тетяна", "Череп-Пероганич Тетяна", "М.Іванцова", "Відута Любов", "Орлова О.", "Ящук-Коде О.", "Закордонець А.", "Жук І.", "Деркачова О.", "Логвин Ю.", "Цвіліховський В.", "Сокольник С.", "Власенко І.", "Виноградов О.", "Сілін О.", "Олендій Л.", "Лінова О."], 
-    cover: "covers/7.jpg" 
+    cover: "/covers/7.jpg" 
   },
   { 
     id: 8, 
@@ -86,7 +86,7 @@ export const books = [
     publisher: "КМ Books", 
     genres: ["Антології різних авторів", "Цикли різножанрових оповідань", "Вибране різних років"], 
     authors: ["М.Іванцова", "Белімова Тетяна", "Воронина Леся"], 
-    cover: "covers/8.jpg"
+    cover: "/covers/8.jpg"
   },
   { 
     id: 9, 
@@ -97,7 +97,7 @@ export const books = [
     publisher: "КМ БУКС", 
     genres: ["Міське", "Психологічне", "Людяне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/9.jpg"
+    cover: "/covers/9.jpg"
   },
   { 
     id: 10, 
@@ -108,7 +108,7 @@ export const books = [
     publisher: "КМ БУКС", 
     genres: ["Мандрівне", "Путівні нотатки", "Цикли різножанрових оповідань"], 
     authors: ["М.Іванцова", "Вдовиченко Галина", "Лазуткін Дмитро"], 
-    cover: "covers/10.jpg"
+    cover: "/covers/10.jpg"
   },
 
   // PÁGINA 2 (libros 11-20)
@@ -121,7 +121,7 @@ export const books = [
     publisher: "КМ БУКС", 
     genres: ["Цикли різножанрових оповідань", "Авторська проза", "Мандрівне"], 
     authors: ["М.Іванцова", "Ів Галина", "Лазуткін Дмитро", "Н.Гук"], 
-    cover: "covers/11.jpg"
+    cover: "/covers/11.jpg"
   },
   { 
     id: 12, 
@@ -132,7 +132,7 @@ export const books = [
     publisher: "КМ Books", 
     genres: ["Подорожня історія", "Цикли різножанрових оповідань"], 
     authors: ["Корній Дара", "М.Іванцова", "Ів Галина", "Н.Гук"], 
-    cover: "covers/12.jpg"
+    cover: "/covers/12.jpg"
   },
   { 
     id: 13, 
@@ -143,7 +143,7 @@ export const books = [
     publisher: "Брайт Стар Паблішинг", 
     genres: ["Майдани", "Політичне", "Документальна проза"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/13.jpg" 
+    cover: "/covers/13.jpg" 
   },
   { 
     id: 14, 
@@ -154,7 +154,7 @@ export const books = [
     publisher: "Брайт Стар Паблішинг", 
     genres: ["Романи, новели та оповідання", "Міське", "Вибране різних років"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/14.jpg"
+    cover: "/covers/14.jpg"
   },
   { 
     id: 15, 
@@ -165,7 +165,7 @@ export const books = [
     publisher: "Фоліо", 
     genres: ["Романи, новели та оповідання", "Збірки прози", "Антології різних авторів"], 
     authors: ["Бєсєдін Платон", "Вдовиченко Галина", "Вільчинский Олександр", "Винничук Юрій", "Габор Василь", "Дяченки Марина і Сергій", "Есаулов Олександ", "Єшкілєв Володимир", "Забужко Оксана", "Жадан Сергій", "М.Іванцова", "Іваничук Роман", "Когтянц Костянтин", "Коломійчук Богдан", "Курков Анд"], 
-    cover: "covers/15.jpg"
+    cover: "/covers/15.jpg"
   },
   { 
     id: 16, 
@@ -176,7 +176,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Психологічне", "Сучасне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/16.jpg" 
+    cover: "/covers/16.jpg" 
   },
   { 
     id: 17, 
@@ -187,7 +187,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Психологічне", "Жіноче"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/17.jpg"
+    cover: "/covers/17.jpg"
   },
   { 
     id: 18, 
@@ -198,7 +198,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Молодіжне", "Кримінальне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/18.jpg"
+    cover: "/covers/18.jpg"
   },
   { 
     id: 19, 
@@ -209,7 +209,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Сучасне", "Психологічне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/19.jpg"
+    cover: "/covers/19.jpg"
   },
   { 
     id: 20, 
@@ -220,7 +220,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Психологічне", "Міське", "Роман-життєпис"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/20.jpg"
+    cover: "/covers/20.jpg"
   },
 
   // PÁGINA 3 (libros 21-30)
@@ -233,7 +233,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Сучасне", "Психологічне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/21.jpg"
+    cover: "/covers/21.jpg"
   },
   { 
     id: 22, 
@@ -244,7 +244,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Психологічне", "Авторська проза", "Антології різних авторів"], 
     authors: ["М.Іванцова", "Забужко Оксана", "Роздобудько Ірен", "Вдовиченко Галина", "Є.Кононенко", "Жадан Сергій", "Л.Денисенко"], 
-    cover: "covers/22.jpg"
+    cover: "/covers/22.jpg"
   },
   { 
     id: 23, 
@@ -255,7 +255,7 @@ export const books = [
     publisher: "Нора-Друк", 
     genres: ["Жіноче", "Міське", "Роман-життєпис"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/23.jpg"
+    cover: "/covers/23.jpg"
   },
   { 
     id: 24, 
@@ -266,7 +266,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Психологічне", "Сучасне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/24.jpg"
+    cover: "/covers/24.jpg"
   },
   { 
     id: 25, 
@@ -277,7 +277,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Сучасне", "Психологічне", "Міське"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/25.jpg"
+    cover: "/covers/25.jpg"
   },
   { 
     id: 26, 
@@ -288,7 +288,7 @@ export const books = [
     publisher: "Фоліо", 
     genres: ["Романи, новели та оповідання", "Збірки прози", "Авторська проза"], 
     authors: ["Роздобудько Ірен", "Володимир Барна", "Юрій Винничук", "Валентин Терлецький", "Забужко Оксана", "Валерій Шевчук", "М.Іванцова", "Віталій Шлайфер", "Г.Вдовиченко", "Кідрук Максим", "Т.Литовченко", "Бабкіна Катерина", "Жадан Сергій", "Андрій Курков", "Любко Дереш", "Лада Лузіна", "Валенти"], 
-    cover: "covers/26.jpg"
+    cover: "/covers/26.jpg"
   },
   { 
     id: 27, 
@@ -299,7 +299,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Жіноче", "Міське", "Психологічне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/27.jpg"
+    cover: "/covers/27.jpg"
   },
   { 
     id: 28, 
@@ -310,7 +310,7 @@ export const books = [
     publisher: "Грані-Т", 
     genres: ["Молодіжне", "Сучасне", "Життя видатних людей"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/28.jpg"
+    cover: "/covers/28.jpg"
   },
   { 
     id: 29, 
@@ -321,7 +321,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Кримінальне", "Молодіжне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/29.jpg"
+    cover: "/covers/29.jpg"
   },
   { 
     id: 30, 
@@ -332,7 +332,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Міське", "Кримінальне", "Містичне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/30.jpg"
+    cover: "/covers/30.jpg"
   },
 
   // PÁGINA 4 (libros 31-34)
@@ -345,7 +345,7 @@ export const books = [
     publisher: "Клуб сімейного дозвілля (КСД)", 
     genres: ["Сучасне", "Жіноче", "Психологічне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/31.jpg"
+    cover: "/covers/31.jpg"
   },
   { 
     id: 32, 
@@ -356,7 +356,7 @@ export const books = [
     publisher: "Брайт Стар Паблішинг", 
     genres: ["Міське", "Сучасне", "Оповідання"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/32.jpg"
+    cover: "/covers/32.jpg"
   },
   { 
     id: 33, 
@@ -367,7 +367,7 @@ export const books = [
     publisher: "Нора-Друк", 
     genres: ["Повість", "Сучасне", "Жіноче"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/33.jpg"
+    cover: "/covers/33.jpg"
   },
   { 
     id: 34, 
@@ -378,6 +378,6 @@ export const books = [
     publisher: "Грані-Т", 
     genres: ["Молодіжне", "Романтика", "Сучасне"], 
     authors: ["М.Іванцова"], 
-    cover: "covers/34.jpg"
+    cover: "/covers/34.jpg"
   }
 ]

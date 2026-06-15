@@ -17,7 +17,7 @@
           <div class="aspect-[2/3] rounded-xl overflow-hidden bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
             <img 
               v-if="book.cover" 
-              :src="book.cover.startsWith('/') ? book.cover : '/' + book.cover" 
+              :src="book.cover" 
               :alt="book.title"
               class="w-full h-full object-cover"
             >
@@ -71,32 +71,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { books } from '../data/books.js'
-import { useLanguage } from '../composables/useLanguage.js'
 import JsonLd from './JsonLd.vue'
 
 const route = useRoute()
-const props = defineProps(['whatsappNumber'])
-const { t, translateBook } = useLanguage()
-const bookRaw = ref(null)
-
-const book = computed(() => {
-  return translateBook(bookRaw.value)
-})
+const props = defineProps(['t', 'whatsappNumber'])
+const book = ref(null)
 
 const loadBook = () => {
   const id = parseInt(route.params.id)
-  bookRaw.value = books.find(b => b.id === id)
+  book.value = books.find(b => b.id === id)
+  
+  if (book.value && props.t) {
+    document.title = `${book.value.title} | Міла Іванцова`
+  }
 }
 
 onMounted(loadBook)
 watch(() => route.params.id, loadBook)
-
-watch([book, t], () => {
-  if (book.value) {
-    document.title = `${book.value.title} | Міла Іванцова`
-  }
-}, { immediate: true })
 </script>
