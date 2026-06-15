@@ -1,6 +1,6 @@
 <template>
-  <div v-if="book" class="min-h-screen py-20">
-    <JsonLd :book="book" />
+  <div v-if="translatedBook" class="min-h-screen py-20">
+    <JsonLd :book="translatedBook" />
     <v-container>
       <v-btn
         variant="text"
@@ -13,46 +13,48 @@
       
       <v-row>
         <v-col cols="12" md="5">
-          <!-- Imagen de portada o placeholder -->
           <div class="aspect-[2/3] rounded-xl overflow-hidden bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
             <img 
-              v-if="book.cover" 
-              :src="book.cover" 
-              :alt="book.title"
+              v-if="translatedBook.cover && imageExists" 
+              :src="translatedBook.cover.startsWith('/') ? translatedBook.cover : '/' + translatedBook.cover" 
+              :alt="translatedBook.title"
               class="w-full h-full object-cover"
+              @error="imageExists = false"
             >
-            <div v-else class="w-full h-full flex items-center justify-center">
-              <v-icon size="80" color="premium-steel">mdi-book-open-variant</v-icon>
+            <div v-else class="w-full h-full flex flex-col items-center justify-center p-6 text-center">
+              <v-icon size="64" color="premium-steel" class="mb-4">mdi-book-open-variant</v-icon>
+              <p class="text-sm text-premium-steel font-serif">{{ translatedBook.title }}</p>
+              <p class="text-xs text-gray-400 mt-2">{{ translatedBook.year }}</p>
             </div>
           </div>
         </v-col>
         
         <v-col cols="12" md="7">
-          <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">{{ book.title }}</h1>
+          <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">{{ translatedBook.title }}</h1>
           
           <div class="flex flex-wrap gap-2 mb-4">
-            <v-chip v-for="genre in book.genres" :key="genre">{{ genre }}</v-chip>
+            <v-chip v-for="genre in translatedBook.genres" :key="genre">{{ genre }}</v-chip>
           </div>
           
           <v-divider class="my-4"></v-divider>
           
           <p class="text-premium-steel mb-2">
-            <strong>📅 {{ t('book.published') }}:</strong> {{ book.year }}
+            <strong>📅 {{ t('book.published') }}:</strong> {{ translatedBook.year }}
           </p>
           <p class="mb-2">
-            <strong>🏢 {{ t('book.publisher') }}:</strong> {{ book.publisher }} ({{ book.city }})
+            <strong>🏢 {{ t('book.publisher') }}:</strong> {{ translatedBook.publisher }} ({{ translatedBook.city }})
           </p>
           <p class="mb-4">
-            <strong>📄 {{ t('book.pages') }}:</strong> {{ book.pages }}
+            <strong>📄 {{ t('book.pages') }}:</strong> {{ translatedBook.pages }}
           </p>
           
-          <div v-if="book.authors.length > 1" class="mb-4">
+          <div v-if="translatedBook.authors && translatedBook.authors.length > 1" class="mb-4">
             <strong>{{ t('book.authors') }}:</strong>
-            <p class="text-gray-600 dark:text-gray-400">{{ book.authors.join(', ') }}</p>
+            <p class="text-gray-600 dark:text-gray-400">{{ translatedBook.authors.join(', ') }}</p>
           </div>
           
           <v-btn
-            :href="`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Добрий день! Хочу придбати книгу «${book.title}» (${book.year})`)}`"
+            :href="whatsappLink"
             target="_blank"
             color="success"
             size="large"
@@ -71,23 +73,43 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { books } from '../data/books.js'
+import { useLanguage } from '../composables/useLanguage.js'
 import JsonLd from './JsonLd.vue'
 
 const route = useRoute()
 const props = defineProps(['t', 'whatsappNumber'])
-const book = ref(null)
+const { currentLanguage, translateBook, getWhatsAppMessage } = useLanguage()
+const originalBook = ref(null)
+const translatedBook = ref(null)
+const imageExists = ref(true)
+
+const whatsappLink = computed(() => {
+  if (!translatedBook.value) return '#'
+  const message = getWhatsAppMessage(translatedBook.value.title, translatedBook.value.year)
+  return `https://wa.me/${props.whatsappNumber}?text=${encodeURIComponent(message)}`
+})
 
 const loadBook = () => {
   const id = parseInt(route.params.id)
-  book.value = books.find(b => b.id === id)
+  originalBook.value = books.find(b => b.id === id)
   
-  if (book.value && props.t) {
-    document.title = `${book.value.title} | Міла Іванцова`
+  if (originalBook.value) {
+    translatedBook.value = translateBook(originalBook.value)
+    document.title = `${translatedBook.value.title} | Міла Іванцова`
   }
+  
+  imageExists.value = true
 }
+
+watch(currentLanguage, () => {
+  if (originalBook.value) {
+    translatedBook.value = translateBook(originalBook.value)
+    document.title = `${translatedBook.value.title} | Міла Іванцова`
+  }
+})
 
 onMounted(loadBook)
 watch(() => route.params.id, loadBook)

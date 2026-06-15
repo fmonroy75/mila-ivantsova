@@ -1,4 +1,4 @@
-import { ref, reactive, computed } from 'vue'
+import { ref } from 'vue'
 import { translations } from '../data/translations.js'
 
 const currentLanguage = ref(localStorage.getItem('language') || 'uk')
@@ -19,33 +19,56 @@ export function useLanguage() {
   
   const translateBook = (book) => {
     if (!book) return null
-    if (currentLanguage.value === 'uk') return book
+    // Si el idioma es ucraniano, devolver el libro original sin cambios
+    if (currentLanguage.value === 'uk') return { ...book }
     
+    // Traducir al inglés usando la estructura correcta de booksData
+    const booksData = translations.en.booksData || {}
     const translated = { ...book }
     
-    if (translations.en.booksData) {
-      if (translations.en.booksData[book.title]) {
-        translated.title = translations.en.booksData[book.title]
-      }
-      if (translations.en.booksData[book.city]) {
-        translated.city = translations.en.booksData[book.city]
-      }
-      if (translations.en.booksData[book.publisher]) {
-        translated.publisher = translations.en.booksData[book.publisher]
-      }
-      if (book.genres) {
-        translated.genres = book.genres.map(genre => {
-          return translations.en.booksData[genre] || genre
-        })
-      }
-      if (book.authors) {
-        translated.authors = book.authors.map(author => {
-          return translations.en.booksData[author] || author
-        })
-      }
+    // Traducir título
+    if (booksData.titles && booksData.titles[book.title]) {
+      translated.title = booksData.titles[book.title]
+    }
+    
+    // Traducir ciudad
+    if (booksData.cities && booksData.cities[book.city]) {
+      translated.city = booksData.cities[book.city]
+    }
+    
+    // Traducir editorial
+    if (booksData.publishers && booksData.publishers[book.publisher]) {
+      translated.publisher = booksData.publishers[book.publisher]
+    }
+    
+    // Traducir géneros
+    if (book.genres && booksData.genres) {
+      translated.genres = book.genres.map(genre => {
+        return booksData.genres[genre] || genre
+      })
+    }
+    
+    // Traducir autores
+    if (book.authors && booksData.authors) {
+      translated.authors = book.authors.map(author => {
+        return booksData.authors[author] || author
+      })
     }
     
     return translated
+  }
+  
+  const getWhatsAppMessage = (bookTitle, year) => {
+    const messageTemplate = t('book.whatsappMessage')
+    if (!messageTemplate || messageTemplate === 'book.whatsappMessage') {
+      // Fallback si no existe la traducción
+      return currentLanguage.value === 'uk' 
+        ? `Добрий день! Хочу придбати книгу «${bookTitle}» (${year})`
+        : `Hello! I would like to purchase the book "${bookTitle}" (${year})`
+    }
+    return messageTemplate
+      .replace('{title}', bookTitle)
+      .replace('{year}', year)
   }
   
   const setLanguage = (lang) => {
@@ -55,5 +78,5 @@ export function useLanguage() {
     }
   }
   
-  return { currentLanguage, t, translateBook, setLanguage }
+  return { currentLanguage, t, translateBook, getWhatsAppMessage, setLanguage }
 }
