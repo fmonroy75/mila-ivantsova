@@ -26,13 +26,13 @@
   >
             <!-- Imagen de portada o placeholder -->
             <div class="aspect-[2/3] overflow-hidden rounded-t-lg bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
-              <img 
-                v-if="book.cover" 
-                :src="book.cover.startsWith('/') ? book.cover : '/' + book.cover" 
-                :alt="book.title"
-                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                loading="lazy"
-              >
+              <img
+  v-if="book.cover"
+  :src="getCoverUrl(book.cover)"
+  :alt="book.title"
+  class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+  loading="lazy"
+/>
               <div v-else class="w-full h-full flex items-center justify-center">
                 <v-icon size="64" color="premium-steel">mdi-book-open-variant</v-icon>
               </div>
@@ -103,6 +103,11 @@ const resetTilt = (bookId) => {
   if (card) {
     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)'
   }
+}
+/*funcion para traer la ruta de las imagenes*/
+const getCoverUrl = (cover) => {
+  if (!cover) return null
+  return import.meta.env.BASE_URL + cover
 }
 </script>
 

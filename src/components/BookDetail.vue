@@ -15,12 +15,12 @@
         <v-col cols="12" md="5">
           <div class="aspect-[2/3] rounded-xl overflow-hidden bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
             <img 
-              v-if="translatedBook.cover && imageExists" 
-              :src="translatedBook.cover.startsWith('/') ? translatedBook.cover : '/' + translatedBook.cover" 
-              :alt="translatedBook.title"
-              class="w-full h-full object-cover"
-              @error="imageExists = false"
-            >
+  v-if="translatedBook.cover && imageExists" 
+  :src="getCoverUrl(translatedBook.cover)"
+  :alt="translatedBook.title"
+  class="w-full h-full object-cover"
+  @error="imageExists = false"
+>
             <div v-else class="w-full h-full flex flex-col items-center justify-center p-6 text-center">
               <v-icon size="64" color="premium-steel" class="mb-4">mdi-book-open-variant</v-icon>
               <p class="text-sm text-premium-steel font-serif">{{ translatedBook.title }}</p>
@@ -85,6 +85,13 @@ const { currentLanguage, translateBook, getWhatsAppMessage } = useLanguage()
 const originalBook = ref(null)
 const translatedBook = ref(null)
 const imageExists = ref(true)
+
+/*funcion para traer la ruta de las imagenes*/
+const getCoverUrl = (cover) => {
+  if (!cover) return null
+  return import.meta.env.BASE_URL + cover
+}
+/*--*/
 
 const whatsappLink = computed(() => {
   if (!translatedBook.value) return '#'

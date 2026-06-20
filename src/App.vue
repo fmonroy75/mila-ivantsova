@@ -14,7 +14,7 @@
         <div class="d-flex align-center">
           <router-link to="/" class="text-decoration-none d-flex align-center gap-3 site-logo">
             <img
-              src="/logo-icon.png"
+              :src="logoIcon"
               alt=""
               width="40"
               height="40"
@@ -75,7 +75,7 @@
               <div class="brand-ingenium">
                 <div class="brand-logo">
                   <v-img 
-                    src="/ingenium.png" 
+                    :src="ingeniumLogo"
                     alt="IngeniumBright" 
                     class="logo-img" 
                     cover
@@ -138,6 +138,9 @@ onUnmounted(() => {
 const cursorRef = ref(null)
 const cursorDotRef = ref(null)
 const isCursorActive = ref(false)
+
+const logoIcon = import.meta.env.BASE_URL + "logo-icon.png"
+const ingeniumLogo = import.meta.env.BASE_URL + "ingenium.png"
 
 const handleMouseMove = (e) => {
   const cursor = document.querySelector('.custom-cursor')

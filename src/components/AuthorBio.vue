@@ -53,5 +53,7 @@
 defineProps(['t'])
 
 // Ruta fija para la foto de autora
-const authorPhoto = '/author/mila-ivantsova.jpg'
+//const authorPhoto = 'author/mila-ivantsova.jpg'
+const authorPhoto =
+  import.meta.env.BASE_URL + 'author/mila-ivantsova.jpg'
 </script>
