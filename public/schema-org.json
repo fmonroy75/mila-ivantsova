@@ -1,0 +1,27 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Міла Іванцова",
+        "alternateName": "Mila Ivantsova",
+        "description": "Сучасна українська письменниця, авторка 34 книг сучасної прози.",
+        "url": "https://milaivantsova.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Київ",
+          "addressCountry": "UA"
+        },
+        "sameAs": [
+          "https://facebook.com/mila.ivantsova",
+          "https://www.instagram.com/mila.ivantsova/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Міла Іванцова | Сучасна українська письменниця",
+        "url": "https://milaivantsova.com",
+        "description": "Sitio oficial de Mila Ivantsova. Autora de 34 libros de prosa contemporánea ucraniana."
+      }
+    ]
+  }

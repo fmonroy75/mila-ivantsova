@@ -1,6 +1,7 @@
 <template>
   <div v-if="translatedBook" class="min-h-screen py-20">
     <JsonLd :book="translatedBook" />
+    
     <v-container>
       <v-btn
         variant="text"
@@ -15,12 +16,12 @@
         <v-col cols="12" md="5">
           <div class="aspect-[2/3] rounded-xl overflow-hidden bg-gradient-to-br from-premium-ukraine/20 to-premium-steel/20">
             <img 
-  v-if="translatedBook.cover && imageExists" 
-  :src="getCoverUrl(translatedBook.cover)"
-  :alt="translatedBook.title"
-  class="w-full h-full object-cover"
-  @error="imageExists = false"
->
+              v-if="translatedBook.cover && imageExists" 
+              :src="getCoverUrl(translatedBook.cover)"
+              :alt="translatedBook.title"
+              class="w-full h-full object-cover"
+              @error="imageExists = false"
+            >
             <div v-else class="w-full h-full flex flex-col items-center justify-center p-6 text-center">
               <v-icon size="64" color="premium-steel" class="mb-4">mdi-book-open-variant</v-icon>
               <p class="text-sm text-premium-steel font-serif">{{ translatedBook.title }}</p>
@@ -86,12 +87,11 @@ const originalBook = ref(null)
 const translatedBook = ref(null)
 const imageExists = ref(true)
 
-/*funcion para traer la ruta de las imagenes*/
+// Función para obtener la URL correcta de la imagen
 const getCoverUrl = (cover) => {
   if (!cover) return null
-  return import.meta.env.BASE_URL + cover
+  return import.meta.env.BASE_URL + cover.replace(/^\//, '')
 }
-/*--*/
 
 const whatsappLink = computed(() => {
   if (!translatedBook.value) return '#'

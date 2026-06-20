@@ -8,7 +8,7 @@ const props = defineProps({
     type: Object,
     default: null
   },
-  isHomePage: {
+  isBookPage: {
     type: Boolean,
     default: false
   }
@@ -16,6 +16,12 @@ const props = defineProps({
 
 const { currentLanguage } = useLanguage()
 const baseUrl = 'https://milaivantsova.com'
+const currentUrl = computed(() => {
+  if (props.isBookPage && props.book) {
+    return `${baseUrl}/book/${props.book.id}`
+  }
+  return baseUrl
+})
 
 // ========================================
 // 1. SCHEMA: Person (Autora)
@@ -32,10 +38,15 @@ const personSchema = {
     addressCountry: 'UA'
   },
   sameAs: [
-    'https://facebook.com/mila.ivantsova'
+    'https://facebook.com/mila.ivantsova',
+    'https://www.instagram.com/mila.ivantsova/'
   ],
   url: baseUrl,
-  mainEntityOfPage: baseUrl
+  mainEntityOfPage: baseUrl,
+  worksFor: {
+    '@type': 'Organization',
+    name: 'IngeniumBright Studio'
+  }
 }
 
 // ========================================
@@ -47,25 +58,57 @@ const websiteSchema = {
   name: 'Міла Іванцова | Сучасна українська письменниця',
   alternateName: 'Mila Ivantsova | Contemporary Ukrainian Writer',
   url: baseUrl,
-  description: 'Sitio oficial de Mila Ivantsova. Autora de 34 libros de prosa contemporánea ucraniana.',
-  inLanguage: currentLanguage.value === 'uk' ? 'uk' : 'en'
+  description: 'Sitio oficial de Mila Ivantsova. Autora de 34 libros de prosa contemporánea ucraniana. Lectura terapéutica.',
+  inLanguage: currentLanguage.value === 'uk' ? 'uk' : 'en',
+  publisher: {
+    '@type': 'Person',
+    name: 'Міла Іванцова'
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Literatura ucraniana contemporánea'
+  }
 }
 
 // ========================================
-// 3. SCHEMA: Book (si hay libro)
+// 3. SCHEMA: Organization (IngeniumBright)
+// ========================================
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'IngeniumBright Studio',
+  url: 'https://ingeniumbright.com',
+  description: 'Estudio de desarrollo web y tecnología para marcas literarias y culturales.',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'CL'
+  },
+  sameAs: [
+    'https://ingeniumbright.com',
+    'https://github.com/ingeniumbright'
+  ]
+}
+
+// ========================================
+// 4. SCHEMA: Book (si estamos en página de libro)
 // ========================================
 const bookSchema = computed(() => {
-  if (!props.book) return null
+  if (!props.isBookPage || !props.book) return null
+  
+  const bookTitle = props.book.title || ''
+  const bookGenres = props.book.genres || []
+  const bookAuthors = props.book.authors || ['Міла Іванцова']
   
   return {
     '@context': 'https://schema.org',
     '@type': 'Book',
-    name: props.book.title,
-    author: {
+    name: bookTitle,
+    alternativeHeadline: `${bookTitle} - ${props.book.year}`,
+    description: `Libro «${bookTitle}» de ${bookAuthors.join(', ')}. ${bookGenres.join(', ')}. ${props.book.pages} páginas.`,
+    author: bookAuthors.map(name => ({
       '@type': 'Person',
-      name: 'Міла Іванцова',
-      sameAs: 'https://facebook.com/mila.ivantsova'
-    },
+      name: name
+    })),
     datePublished: props.book.year,
     numberOfPages: props.book.pages,
     publisher: {
@@ -77,19 +120,28 @@ const bookSchema = computed(() => {
         addressCountry: 'UA'
       }
     },
-    genre: props.book.genres ? props.book.genres.join(', ') : '',
+    genre: bookGenres.join(', '),
     inLanguage: 'uk',
-    isbn: props.book.isbn || undefined,
-    url: `${baseUrl}/book/${props.book.id}`,
-    mainEntityOfPage: `${baseUrl}/book/${props.book.id}`
+    mainEntityOfPage: currentUrl.value,
+    url: currentUrl.value
   }
 })
 
 // ========================================
-// 4. SCHEMA: BreadcrumbList (solo en página de libro)
+// 5. SCHEMA: ItemList (Catálogo de libros) - solo en home
+// ========================================
+const itemListSchema = computed(() => {
+  if (props.isBookPage || !props.book) return null
+  
+  // Esta función se llama desde el componente padre con la lista de libros
+  return null // Se genera dinámicamente en HomePage
+})
+
+// ========================================
+// 6. SCHEMA: BreadcrumbList (Migas de pan)
 // ========================================
 const breadcrumbSchema = computed(() => {
-  if (!props.book) return null
+  if (!props.isBookPage || !props.book) return null
   
   return {
     '@context': 'https://schema.org',
@@ -105,7 +157,7 @@ const breadcrumbSchema = computed(() => {
         '@type': 'ListItem',
         position: 2,
         name: props.book.title,
-        item: `${baseUrl}/book/${props.book.id}`
+        item: currentUrl.value
       }
     ]
   }
@@ -115,13 +167,11 @@ const breadcrumbSchema = computed(() => {
 // Construir array de schemas
 // ========================================
 const schemas = computed(() => {
-  const result = [personSchema, websiteSchema]
+  const result = [personSchema, websiteSchema, organizationSchema]
   
-  if (props.book) {
-    const book = bookSchema.value
-    const breadcrumb = breadcrumbSchema.value
-    if (book) result.push(book)
-    if (breadcrumb) result.push(breadcrumb)
+  if (props.isBookPage && props.book) {
+    if (bookSchema.value) result.push(bookSchema.value)
+    if (breadcrumbSchema.value) result.push(breadcrumbSchema.value)
   }
   
   return result
@@ -133,7 +183,7 @@ const schemas = computed(() => {
 useHead({
   script: schemas.value.map(schema => ({
     type: 'application/ld+json',
-    innerHTML: JSON.stringify(schema, null, 2)
+    innerHTML: JSON.stringify(schema)
   }))
 })
 </script>
